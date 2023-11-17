@@ -3,7 +3,7 @@ import Items from "./Items";
 import Cart from "./Cart";
 import cartImg from "../img/cart.png";
 
-export default function Shop({ name, change }) {
+export default function Shop({ name, change, handleAddToCart }) {
   const [carted, setCarted] = useState(false);
   const [cartSum, setCartSum] = useState(0);
   const [cartNum, setCartNum] = useState(0);
@@ -40,6 +40,7 @@ export default function Shop({ name, change }) {
       <h1 className="snazzy-heading">Webshop</h1>
 
       <div className="header">
+      <div className="cart-img-container">
         <img
           src={cartImg}
           alt="Cart"
@@ -50,10 +51,13 @@ export default function Shop({ name, change }) {
             <span className="cart-count">{cartNum}</span>
           )}
         </div>
+      </div>
+
 
           <Items
             changeSetCartNum={changeSetCartNum}
             changeSetCartSum={changeSetCartSum}
+            handleAddToCart={handleAddToCart}
           />
           
     </>

@@ -8,6 +8,7 @@ export default function Calculator({
   changeSetTotalSum,
   changeSetPrice,
   addToCart,
+  showIndicator
 }) {
   const [digit, setDigit] = useState(0);
 
@@ -28,23 +29,26 @@ export default function Calculator({
   }
 
   function handleAddToCart() {
+    if (typeof addToCart === 'function') {
     addToCart({
       header: header,
       price: price,
       quantity: digit,
     });
   }
+}
 
   return (
     <div className="items-container">
       <img src={url} height={250} width={250} alt={header} />
       <p>{header}</p>
-      <p>{price}$</p>
+      <p>{price} $</p>
       <div>
         <button onClick={subtract}>-</button>
         <span>{digit}</span>
         <button onClick={add}>+</button>
         <button onClick={handleAddToCart}>Add to cart</button>
+        {showIndicator && <span className="indicator">{digit}</span>}
       </div>
     </div>
   );

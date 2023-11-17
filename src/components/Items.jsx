@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Calculator from "./Calculator";
 
 const itemsArr = [
@@ -7,34 +7,39 @@ const itemsArr = [
     heading: "Absent father action figure",
     img: "http://www.weirdshityoucanbuy.com/uploads/7/0/8/8/70881739/absent-father_orig.jpg",
     price: 230,
+    quantity: 0
   },
   {
     id: 2,
     heading: "Life size Tyrannosaurus skeleton",
     img: "http://www.weirdshityoucanbuy.com/uploads/7/0/8/8/70881739/the-life-size-tyrannosaurus-skeleton_orig.jpg",
     price: 100000000,
+    quantity: 0
   },
   {
     id: 3,
     heading: "Dog umbrella",
     img: "http://www.weirdshityoucanbuy.com/uploads/7/0/8/8/70881739/dog-umbrella_orig.jpg",
     price: 260,
+    quantity: 0
   },
   {
     id: 4,
     heading: "Weed pillow",
     img: "http://www.weirdshityoucanbuy.com/uploads/7/0/8/8/70881739/weed-pillow_orig.jpg",
     price: 350,
+    quantity: 0
   },
   {
     id: 5,
     heading: "I miss drugs Yoga mat",
     img: "http://www.weirdshityoucanbuy.com/uploads/7/0/8/8/70881739/i-miss-drugs-yoga-mat_orig.jpg",
     price: 200,
+    quantity: 0
   },
 ];
 
-export default function Items({changeSetCartNum, changeSetCartSum,}) {
+export default function Items({ changeSetCartNum, changeSetCartSum, handleAddToCart }) {
   const [totalNum, setTotalNum] = useState(0);
   const [totalSum, setTotalSum] = useState(0);
   const [price, setPrice] = useState([]);
@@ -44,17 +49,18 @@ export default function Items({changeSetCartNum, changeSetCartSum,}) {
   }
 
   function changeSetTotalNum(arg) {
-    const totalNum = totalNum + arg;
-    setTotalNum (totalNum);
+    setTotalNum(totalNum + arg);
   }
 
   function changeSetTotalSum(arg) {
     setTotalSum(totalSum + arg);
   }
 
-  changeSetCartNum(totalNum);
-  changeSetCartSum(totalSum);
-  
+  useEffect(() => {
+    changeSetCartNum(totalNum);
+    changeSetCartSum(totalSum);
+  }, [totalNum, totalSum, changeSetCartNum, changeSetCartSum]);
+
 
   return (
     <>
@@ -68,6 +74,8 @@ export default function Items({changeSetCartNum, changeSetCartSum,}) {
             changeSetTotalNum={changeSetTotalNum}
             changeSetTotalSum={changeSetTotalSum}
             changeSetPrice={changeSetPrice}
+            addToCart={handleAddToCart}
+            showIndicator={item.quantity > 0}
           />
         </div>
       ))}

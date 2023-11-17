@@ -1,7 +1,9 @@
+
+
 export default function Cart({ name, handleClick, cartNum, cartSum }) {
   function handleBuyClick() {
     window.alert(
-      "Thank you for your purchase of " + cartNum + " for " + cartSum
+      "Thank you for your purchase!"
     );
     handleClick();
   }
